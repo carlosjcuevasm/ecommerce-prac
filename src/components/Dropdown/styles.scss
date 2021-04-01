@@ -1,0 +1,101 @@
+@use '../../settings.scss' as settings;
+
+.dropdown{
+    position: relative;
+    cursor: context-menu;
+    
+    &:hover{
+        padding-bottom: 50px;
+        margin-bottom: -50px;
+    }
+
+    &__list{
+        background-color: settings.$cbase;
+
+        
+        border-radius: settings.$bradius;
+
+        position: absolute;
+        z-index: 1;
+
+        
+        margin-top: 2vw;
+        padding-left: 0;
+        
+
+        transition: all 0.4s ease 0s;
+        opacity: 0;
+        visibility: hidden;
+        transform: translate(0, 1vw);
+        
+        
+
+        &--active{
+            display: block;
+
+            opacity: 1;
+            visibility: visible;
+            transform: translate(0, 0px);
+            
+            
+        }
+
+        &Item{
+            list-style-type: none;
+            white-space: nowrap;
+
+            //Why I have to repeat padding topbottom here...but side works?
+            
+            
+            &Link{
+                
+                padding:1vw 3vw;
+                display: block;
+                
+                
+                color: inherit;
+                text-decoration: none;
+
+                &:hover{
+                    color: settings.$cmain;
+                }
+                
+            }
+        }
+
+    }
+    @media screen and (max-width: settings.$tablet_s){
+        &__list{
+            margin: 0;
+            position: relative;
+            $lineheight: 6vw;
+            line-height: $lineheight;
+            max-height: fit-content;
+            padding: 0;
+
+            opacity: 1;
+            transform: translate(0, 0);
+            visibility: hidden;
+            overflow: hidden;
+            
+            height: 0;
+            
+            &--active{
+                height: calc(6vw*5);
+                
+                visibility: visible;
+                
+            }
+            &Item{
+                
+                &Link{
+                    padding-top: 0;
+                    padding-bottom: 0;
+                }
+                &:hover{
+                    
+                }
+            }
+        }
+    }
+}

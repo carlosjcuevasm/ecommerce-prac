@@ -1,0 +1,229 @@
+@use '../../settings.scss' as settings;
+
+*{ 
+    box-sizing: border-box;
+    
+}
+
+.navbar{
+    
+    background-color: settings.$cbase; 
+    color: settings.$cfont;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    position: relative;
+    min-height: 5vw;
+
+    &__logo{
+        color:inherit;
+
+        
+        text-decoration: none;
+        font-size: calc(15px + .4vw);
+        letter-spacing: .05vw;
+        display: flex;
+        align-items: center;
+        
+        margin:0;
+        
+
+        &Content{
+            margin: 0;
+            
+            &Span{
+                color: settings.$chigh;
+            }
+        }
+    }
+
+    &__menu{
+        
+
+        padding: 0;
+        margin: 0;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        &Item{
+            position: relative;
+
+            list-style-type: none;
+           
+      
+            // padding: 0 .2vw;//This is for underline effect, have a bit of line out of content. (Deprecated as padding set from menu via >*
+
+            &>*{
+                padding: 0 2vw;
+                
+            }
+            &:after {    
+                background: none repeat scroll 0 0 transparent;
+                bottom: -.4vw;
+                left:10%;//There is a play here with the left of the psudo element. Sass variable this
+                right: 0;
+                content: "";
+                display: block;
+                height: 2px;
+                
+                pointer-events: none;
+                
+                position: absolute;
+
+                background: settings.$cmain;
+
+                transition: width 0.4s ease 0s;
+                width: 0;
+              }
+
+              //There is a play here with the left of the psudo element.
+            &:hover{
+                &:after { 
+                    width: 80%; 
+                  }
+            }
+            
+            &--active{
+                &:after {    
+                    background: none repeat scroll 0 0 transparent;
+                    bottom: -.4vw;
+                    left:10%;
+                    right: 0;
+                    content: "";
+                    display: block;
+                    height: 2px;
+                    
+                    position: absolute;
+                    background: settings.$cmain;
+    
+                    transition: width 0.3s ease 0s;
+                    width: 80%; 
+                  }
+        
+            }
+
+            &Link{
+                
+                color: settings.$cfont;
+                
+                text-decoration: none;
+                font-weight: bold;
+                
+                
+
+                &:hover{
+                    
+                }
+
+                &--active{
+                    color: settings.$cmain;
+                }
+            }
+         
+        }
+    }
+
+    &__toggler{
+        color: settings.$cfont;
+        background-color: inherit; 
+        
+        border-style: none;
+        border-radius: settings.$bradius;
+
+        font-size: calc(20px + 1vw);
+        cursor: pointer;
+
+        display: none;
+
+        &:hover{
+            color: settings.$cbase;
+            background-color: settings.$cmain;
+        }
+
+    }
+    
+    @media screen and (max-width: settings.$tablet_s){
+        
+
+        &__menu{
+
+            flex-direction: column;
+            align-items: stretch;
+            
+            position: absolute;
+            left:50%;
+            top: calc(30px + 4vw);
+
+            width: 90%;
+            
+            
+
+            visibility: hidden;
+            opacity: 0;
+            //The X axis is for centering. Y is animation.
+            transform: translate(-50%,5vh);
+            transition: all .2s;
+            transition-duration: .2s;
+
+            
+
+            &--responsive{
+                background-color: settings.$cbase;
+                border-radius: settings.$bradius;
+
+                visibility: visible;
+                opacity: 1; 
+                transform: translate(-50%,0);
+
+                
+            }
+
+            &Item{
+
+                
+                line-height: 6vw;
+                padding-left: 2vw;
+            
+                
+
+                &:after{
+                    all: unset;
+                }
+                
+                //We treat the active different sometimes, as to maybe use it on the navbar to show where is at. 
+                //To change this, also go tot he js. as htere is code already in place to not touch it. Simply a conditional.
+                &--active{
+                    &:after{
+                        all: unset;
+                    }
+                }
+                &--responsive{
+                  
+                }
+            &Link{
+                
+                font-weight: normal;
+
+                display: block;
+                &:hover{
+                    color: settings.$cmain;
+                }
+                
+                
+            }
+
+            }
+        }
+        
+        &__toggler{
+            display: inline;
+            border-style: none;
+
+        }
+    }
+}
+
