@@ -1,14 +1,21 @@
 @use '../../settings.scss' as settings;
 
-*{ 
-    box-sizing: border-box;
-    
-}
+
 
 .navbar{
+    --f: rgb(84, 146, 191);
+    z-index: 1;
+    width: 80%;
+    transform: translateX(10%);
+    // text-shadow: -.5px 0 var(--f), 0 1px var(--f), 1px 0 var(--f), 0 -1px var(--f);
+    
+    // margin: settings.$container;
+    // top:70%; left:50;
     
     background-color: settings.$cbase; 
     color: settings.$cfont;
+
+    
 
     display: flex;
     flex-direction: row;

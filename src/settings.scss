@@ -1,9 +1,10 @@
 $container: 0 16vw;
 $tablet_s: 800px;
-$cbase: #62a9ff;
-$cbaseDull: #b4d1f8;
-$cmain: #106eea;
-$cfont: #222222;
+$cbase: transparent;
+$cbaseDull: #abb9cc;
+$cmain: rgba(8, 6, 6, 0.673);
+$cfont: rgba(0, 0, 0, 0.673);
+$csecond: rgba(0, 0, 0, 0.571);
 $cfont-light: #555555;
 $chigh: $cmain;
 $bradius: 5px;

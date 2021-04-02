@@ -24,7 +24,7 @@ function Navbar(props){
     
 
     return (
-        <nav className="navbar">
+        <nav className="navbar" style={{position: props.position}}>
             <a href="#" className="navbar__logo"> <h1 className="navbar__logoContent">BizLand<span className="navbar__logoContentSpan">.</span></h1></a>
             <ul className="navbar__menu" ref={navbarMenu}>
                 <li className="navbar__menuItem navbar__menuItem--active" ref={navbarMenuItem}><a className="navbar__menuItemLink navbar__menuItemLink--active" href="#">Home</a></li>

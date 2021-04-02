@@ -1,0 +1,30 @@
+@use '../../settings.scss' as settings;
+
+.category{
+    height: 100%;
+    width: 100%;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 5%;
+
+    position: relative;
+
+    &__link{
+        background-color: transparent;
+        border-style: solid;
+        border-width: .2vw;
+        padding: .5vw 2vw;
+        border-radius: settings.$bradius;
+
+        font-size: 1vw;
+
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translateX(50%);
+        
+        
+        
+
+    }
+}
