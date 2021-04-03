@@ -1,9 +1,13 @@
+//Components
 import Navbar from '../components/Navbar';
 
 //styling
 import './style.scss';
 
 function MainLayout (props){
+
+    
+
 
     return (
         <div className='mainLayout'>

@@ -9,7 +9,7 @@ import './styles.scss'
 function Homepage (props){
 
     return (
-        <div class='homepage'>
+        <div className='homepage'>
             <div className="shopCategories">
             <CategoriesShop categoryPhoto={shopWomen} message={'Shop Women'}/>
             <CategoriesShop categoryPhoto={shopMen} message={'Shop Men'}/>

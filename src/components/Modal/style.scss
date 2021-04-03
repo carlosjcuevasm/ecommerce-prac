@@ -1,0 +1,12 @@
+// Quitalo de aqui, es de demo rapido
+.modal{
+    z-index: 1;
+    display: block;
+    position: absolute;
+    top:50%; left:50%;
+    transform: translateX(-50%);
+}
+
+.--disabled{
+    display: none;
+}

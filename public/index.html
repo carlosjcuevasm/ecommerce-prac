@@ -25,6 +25,13 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+
+    
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script>
+<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css" />
+
+
+
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -39,5 +46,49 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+
+    <!-- Firebase linking -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+     <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-auth.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyBh1lzK38eeZb-KZ25NrPIF35kYklmiKu4",
+        authDomain: "ecommerce-prac-7fe32.firebaseapp.com",
+        projectId: "ecommerce-prac-7fe32",
+        storageBucket: "ecommerce-prac-7fe32.appspot.com",
+        messagingSenderId: "938524694490",
+        appId: "1:938524694490:web:9504b16aee753294edd2e3"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      
+
+
+    </script>
+    
+    <script>
+      
+      // Initialize the FirebaseUI Widget using Firebase.
+      var ui = new firebaseui.auth.AuthUI(firebase.auth());
+      var uiConfig = {
+  signInOptions: [
+    {
+      provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      signInMethod: firebase.auth.EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD,
+      requireDisplayName: false
+    }
+  ]
+}
+      ui.start('#firebaseui-auth-container', uiConfig);
+    </script>
+
+  <div id=firebaseui-auth-container></div>
+  
   </body>
 </html>
