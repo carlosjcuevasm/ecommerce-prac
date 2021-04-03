@@ -15,6 +15,9 @@ import Modal from '../Navbar';
 import { getDefaultNormalizer } from '@testing-library/dom';
 
 
+//FIREBASE STUFF
+{
+//FB config file to link to FB Project
 const firebaseConfig = {
     apiKey: "AIzaSyBh1lzK38eeZb-KZ25NrPIF35kYklmiKu4",
     authDomain: "ecommerce-prac-7fe32.firebaseapp.com",
@@ -24,29 +27,48 @@ const firebaseConfig = {
     appId: "1:938524694490:web:9504b16aee753294edd2e3"
   };
 
+//Must be initialized before using any FB service
 firebase.initializeApp(firebaseConfig);
 
-firebase.auth().signInWithEmailAndPassword('prueba@gmail.com', 'prueba123')
-  .then((userCredential) => {
-    // Signed in 
-    var user = userCredential.user;
-    alert('entro');
-    // ...
-  })
-  .catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // ..
-  });
+//Using the firebaseui SDK. Helps streamlining the flow of sign in with a DOM form, styling,  sign-n in help, recover, register, and stuff. Nice Packge. Can be styled.
+var ui = new firebaseui.auth.AuthUI(firebase.auth());
+ 
+//Configuring the firebase ui isntace to be run
+var uiConfig = {
+    callbacks: {
+      signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+          alert('Iniciaste Sesion!')
+        // User successfully signed in.
+        // Return type determines whether we continue the redirect automatically
+        // or whether we leave that to developer to handle.
+        return true;
+      },
+      uiShown: function() {
+        // The widget is rendered.
+        // Hide the loader.
+        document.getElementById('loader').style.display = 'none';
+      }
+    },
+    // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+    signInFlow: 'popup',
+    signInSuccessUrl:'/',
+    signInOptions: [
+        firebase.auth.EmailAuthProvider.PROVIDER_ID
+      ],
+      // Other config options...
+    tosURL: '/',
+    privacyPolicyUrl: '<your-privacy-policy-url>'
+};
+
+//Running the firebaseui instance
+ui.start('#firebaseui-auth-container', uiConfig)
+}
+
 
 function Navbar(props){
-
-   
-
-
-
     //states
-    const [isDisabled,setDisabled] = useState('false')
+    const [isDisabled,setDisabled] = useState('false');
+
     
     //Dom references / Acess elements's DOM API
     const navbarMenuItem = useRef(null);
@@ -67,6 +89,8 @@ function Navbar(props){
 
     function modalHandler(){
         setDisabled(!isDisabled);
+        props.modalNotify();
+        
         
     }
 
