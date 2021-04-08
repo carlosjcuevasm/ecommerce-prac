@@ -24,19 +24,19 @@ function Dropdown (props){
         <div className="dropdown "  onMouseOver={mouseOverHandler} onMouseOut={mouseOutHandler}>Dropdown
             <ul className="dropdown__list" ref={dropdownList} onMouseOut={mouseOutHandler}>
                 <li className="dropdown__listItem">
-                    <a className="dropdown__listItemLink" href="#">Dropdown 1</a>
+                    <a className="dropdown__listItemLink" href='/#'>Dropdown 1</a>
                 </li>
                 <li className="dropdown__listItem">
-                    <a className="dropdown__listItemLink" href="#">Dropdown 2</a>
+                    <a className="dropdown__listItemLink" href='/#'>Dropdown 2</a>
                 </li>
                 <li className="dropdown__listItem">
-                    <a className="dropdown__listItemLink" href="#">Dropdown 3</a>
+                    <a className="dropdown__listItemLink" href='/#'>Dropdown 3</a>
                 </li>
                 <li className="dropdown__listItem">
-                    <a className="dropdown__listItemLink" href="#">Dropdown 4</a>
+                    <a className="dropdown__listItemLink" href='/#'>Dropdown 4</a>
                 </li>
                 <li className="dropdown__listItem">
-                    <a className="dropdown__listItemLink" href="#">Dropdown 5</a>
+                    <a className="dropdown__listItemLink" href='/#'>Dropdown 5</a>
                 </li>
             </ul>
         </div>       

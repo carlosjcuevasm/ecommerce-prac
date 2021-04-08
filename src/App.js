@@ -1,11 +1,11 @@
 //layouts
-import MainLayout from './layouts/MainLayout';
+import MainLayout from './pages/layouts/MainLayout';
 
 //styling
 import './App.scss';
 
 //pages
-import Homepage from './pages/Homepage';
+import Homepage from './pages/views/Homepage';
 import { useState } from 'react';
 
 function App() {
@@ -16,9 +16,9 @@ function App() {
   }
 
   return (
-    <MainLayout>
+    
       <Homepage/>
-    </MainLayout>
+    
   );
 }
 

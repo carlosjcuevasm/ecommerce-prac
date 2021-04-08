@@ -1,21 +1,21 @@
 //React
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef} from 'react';
 
 
 //Styles
 import './styles.scss'
 
 //Components
-import Dropdown from '../Dropdown';
+
 
 //firebase services imports
-import * as firebaseUtils from '../../firebase/utils';
+import * as firebaseUtils from '../../../firebase/utils';
 
 //Firebase services calls
-{
+
 //start Sign-in UI. Looks for its id named div.
 firebaseUtils.firebaseuiStart();
-}
+
 
 function Navbar(props){
     //states
@@ -49,17 +49,13 @@ function Navbar(props){
     return (
         <div>
             <div id='firebaseui-auth-container' className={'modal ' + (isDisabled ? '--disabled': null) }>
-            hola
+            
             </div>
             <div id="loader">Loading...</div>
             <nav className="navbar" style={{position: props.position}}>
             <a href="#" className="navbar__logo"> <h1 className="navbar__logoContent">BizLand<span className="navbar__logoContentSpan">.</span></h1></a>
             <ul className="navbar__menu" ref={navbarMenu}>
-                
-                <li className="navbar__menuItem">
-                   <Dropdown/>
-            
-                </li>
+
                 <li className="navbar__menuItem"><button className="navbar__menuItemLink" href="#" onClick={modalHandler}>Login</button></li>
             </ul>
             <button className="navbar__toggler" ref={toggler} onClick={togglerHandler}>☰</button>

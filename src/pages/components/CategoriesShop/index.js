@@ -11,7 +11,7 @@ function CategoriesShop(props){
 
     return (
         <div className='category' style={{backgroundImage:`url(${props.categoryPhoto})`}}>
-            <a className='category__link'>{props.message}</a>
+            <a className='category__link' href='/#'>{props.message}</a>
         </div>
     )
 }
