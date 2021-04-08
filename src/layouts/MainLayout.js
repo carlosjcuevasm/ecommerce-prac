@@ -1,6 +1,6 @@
 //Components
 import { useState } from 'react';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar/Navbar';
 
 //styling
 import './style.scss';

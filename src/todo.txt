@@ -1,0 +1,6 @@
+Documenta todo.
+Modelo y todo.
+El file structure y definicion de cada folder...todo.
+    asi tienes nombres cortos y que sirven, y no pierdes la dimension .e una semantica mas descriptiva.
+    pues esta existe en la documentacion ie. Decirle a Firebase: folder de integracion con el servicio web de autenticasio etc. 
+    Se utiliza google firebase etc
