@@ -5,6 +5,9 @@ import Navbar from '../components/Navbar/Navbar';
 //styling
 import './style.scss';
 
+//Context
+import {globalContext} from '../../AppContext'
+
 function MainLayout (props){
 
     const [isDark,setDark]= useState('false');
@@ -17,7 +20,11 @@ function MainLayout (props){
     return (
         
         <div className={'mainLayout ' }>
-            <Navbar modalNotify={modalNotify} position='absolute' />
+            <globalContext.Consumer>
+                {(handleSignIn)=> (
+                    <Navbar modalNotify={modalNotify} login={handleSignIn.globalContextValues.handleSignIn} position='absolute' />
+                )}
+            </globalContext.Consumer>
             <div className={'mainLayout '+ (isDark ? '': '--dark')}>
             {props.children}
             </div>

@@ -13,8 +13,7 @@ import * as firebaseUtils from '../../../firebase/utils';
 
 //Firebase services calls
 
-//start Sign-in UI. Looks for its id named div.
-firebaseUtils.firebaseuiStart();
+
 
 
 function Navbar(props){
@@ -39,11 +38,11 @@ function Navbar(props){
             }
     }
 
-    function modalHandler(){
+    function loginHandler(){
         setDisabled(!isDisabled);
-        props.modalNotify();
-        
-        
+        props.modalNotify(); 
+        firebaseUtils.firebaseuiStart(); 
+        props.login();
     }
 
     return (
@@ -51,12 +50,12 @@ function Navbar(props){
             <div id='firebaseui-auth-container' className={'modal ' + (isDisabled ? '--disabled': null) }>
             
             </div>
-            <div id="loader">Loading...</div>
+
             <nav className="navbar" style={{position: props.position}}>
             <a href="#" className="navbar__logo"> <h1 className="navbar__logoContent">BizLand<span className="navbar__logoContentSpan">.</span></h1></a>
             <ul className="navbar__menu" ref={navbarMenu}>
 
-                <li className="navbar__menuItem"><button className="navbar__menuItemLink" href="#" onClick={modalHandler}>Login</button></li>
+                <li className="navbar__menuItem"><button className="navbar__menuItemLink button --noBlur" href="#" onClick={loginHandler}>Login</button></li>
             </ul>
             <button className="navbar__toggler" ref={toggler} onClick={togglerHandler}>☰</button>
         </nav>

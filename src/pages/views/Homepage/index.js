@@ -1,6 +1,6 @@
 //images
-import shopWomen from '../../../assets/shopWomens.jpg';
-import shopMen from '../../../assets/shopMens.jpg';
+import shopWomen from '../../../assets/shopWomen.jpg';
+import shopMen from '../../../assets/shopMen.jpg';
 //components
 import CategoriesShop from '../../components/CategoriesShop';
 
@@ -10,14 +10,15 @@ import MainLayout from '../../layouts/MainLayout';
 //styling
 import './styles.scss'
 
+
 function Homepage (props){
 
     return (
         <div className='homepage'>
             <MainLayout>
             <div className="shopCategories">
-            <CategoriesShop categoryPhoto={shopWomen} message={'Shop Women'}/>
-            <CategoriesShop categoryPhoto={shopMen} message={'Shop Men'}/>
+            <CategoriesShop categoryPhoto={shopWomen} message={'Shop Women'} route={'shop-women'} />
+            <CategoriesShop categoryPhoto={shopMen} message={'Shop Men'} route={'shop-men'} />
             </div>
             </MainLayout>
             

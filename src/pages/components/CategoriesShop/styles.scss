@@ -11,14 +11,6 @@
     position: relative;
 
     &__link{
-        background-color: transparent;
-        border-style: solid;
-        border-width: .2vw;
-        padding: .2vw 1vw;
-        border-radius: settings.$bradius;
-
-        font-size: 1vw;
-
         position: absolute;
         top: 60%; left: 50%;
         transform: translateX(-50%);
