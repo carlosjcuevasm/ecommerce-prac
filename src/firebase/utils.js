@@ -17,20 +17,18 @@ import 'firebaseui/dist/firebaseui.css'
 
 firebase.initializeApp(firebaseConfig);
 
-
-
 //FIREBASE UI
 //Built from FB SDK. Helps streamlining the flow of sign in with a DOM form, styling,  sign-n in help, recover, register, and stuff. Nice Packge. Can be styled.
 var ui = new firebaseui.auth.AuthUI(firebase.auth());
 //Configuring the firebase ui isntace to be run
-var uiConfig = {
+function uiConfigFunction(onSucess){
+  var uiConfig = {
     callbacks: {
       signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-          alert('Iniciaste Sesion!')
-        // User successfully signed in.
-        // Return type determines whether we continue the redirect automatically
-        // or whether we leave that to developer to handle.
-        return true;
+          if (onSucess){
+            onSucess();
+          }
+        return false;
       },
       uiShown: function() {
         // The widget is rendered.
@@ -47,11 +45,25 @@ var uiConfig = {
       // Other config options...
     tosURL: '/',
     privacyPolicyUrl: '<your-privacy-policy-url>'
-};
+  };
+  return (uiConfig);
+}
 //Running the firebaseui instance to be exported
-export function firebaseuiStart(){
-    return ui.start('#firebaseui-auth-container', uiConfig);
+export function firebaseuiStart(successFunction){
+    ui.start('#firebaseui-auth-container', uiConfigFunction(successFunction));
 } 
+
+export async function firebaseAuthSignout(successFunction){
+  firebase.auth().signOut()
+  .then(function(){
+    console.log('funca')
+    successFunction();
+    
+  
+  }).catch(function(error){
+    console.log('error');
+  });
+}
 
     
     

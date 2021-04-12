@@ -21,8 +21,8 @@ function MainLayout (props){
         
         <div className={'mainLayout ' }>
             <globalContext.Consumer>
-                {(handleSignIn)=> (
-                    <Navbar modalNotify={modalNotify} login={handleSignIn.globalContextValues.handleSignIn} position='absolute' />
+                {({handleSignIn})=> (
+                    <Navbar modalNotify={modalNotify} login={handleSignIn} position='absolute' />
                 )}
             </globalContext.Consumer>
             <div className={'mainLayout '+ (isDark ? '': '--dark')}>

@@ -1,19 +1,15 @@
-//layouts
-import MainLayout from './pages/layouts/MainLayout';
-
 //styling
 import './App.scss';
 
 //pages
 import Homepage from './pages/views/Homepage';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 
 //import
-import {globalContext, globalContextValues} from './AppContext';
+import {globalContext,} from './AppContext';
 
 //Routing
 import {
-  Link,
   Switch,
   Route,
 } from "react-router-dom";
@@ -24,32 +20,37 @@ import ShopMen from './pages/views/Shop/ShopMen';
 
 function App() {
 
-  const context = useContext(globalContext);
   
   
-  const [isSigned,setSigned] = useState('false');
-  function handleSignIn(result){
-      alert('Context al rescate');
-      setSigned(result);
+  //States   
+  const [isSigned,setSigned] = useState(false);
+  console.log(isSigned);
+  
+  function handleSetSigned(result){
+   setSigned(result);
   }
-  const globalContex = React.createContext({
-    login: isSigned,
-    handleSignIn: handleSignIn,
-  })
+  
 
   return ( 
     <div className='container'>
-      <Switch>
-                <Route exact path={`/shop-men`}>
-                    <ShopMen/>
-                </Route>
-                <Route exact path={`/shop-women`}>
-                    <ShopWomen/>
-                </Route>
-                <Route path= '/'>
-                  <Homepage/>
-                </Route>
+      <globalContext.Provider value={{
+        signedIn: isSigned,
+        handleSignIn: handleSetSigned
+      }}>
+        <Switch>
+          <Route exact path={`/shop-men`}>
+              <ShopMen/>
+          </Route>
+          <Route exact path={`/shop-women`}>
+              <ShopWomen/>
+          </Route>
+          <Route path= '/'>
+            <Homepage/>
+          </Route>
         </Switch>
+
+      </globalContext.Provider>
+      
     </div>
   );
 }
