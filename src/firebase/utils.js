@@ -21,12 +21,12 @@ firebase.initializeApp(firebaseConfig);
 //Built from FB SDK. Helps streamlining the flow of sign in with a DOM form, styling,  sign-n in help, recover, register, and stuff. Nice Packge. Can be styled.
 var ui = new firebaseui.auth.AuthUI(firebase.auth());
 //Configuring the firebase ui isntace to be run
-function uiConfigFunction(onSucess){
+function uiConfigFunction(onSuccess){
   var uiConfig = {
     callbacks: {
       signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-          if (onSucess){
-            onSucess();
+          if (onSuccess){
+            onSuccess();
           }
         return false;
       },
@@ -52,16 +52,14 @@ function uiConfigFunction(onSucess){
 export function firebaseuiStart(successFunction){
     ui.start('#firebaseui-auth-container', uiConfigFunction(successFunction));
 } 
-
 export async function firebaseAuthSignout(successFunction){
   firebase.auth().signOut()
   .then(function(){
-    console.log('funca')
     successFunction();
     
   
   }).catch(function(error){
-    console.log('error');
+    console.log('error logging out');
   });
 }
 

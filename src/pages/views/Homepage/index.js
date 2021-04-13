@@ -16,10 +16,10 @@ function Homepage (props){
     return (
         <div className='homepage'>
             <MainLayout>
-            <div className="shopCategories">
-            <CategoriesShop categoryPhoto={shopWomen} message={'Shop Women'} route={'shop-women'} />
-            <CategoriesShop categoryPhoto={shopMen} message={'Shop Men'} route={'shop-men'} />
-            </div>
+                <div className="shopCategories">
+                    <CategoriesShop categoryPhoto={shopWomen} message={'Shop Women'} route={'shop-women'} />
+                    <CategoriesShop categoryPhoto={shopMen} message={'Shop Men'} route={'shop-men'} />
+                </div>
             </MainLayout>
             
         </div>

@@ -1,7 +1,6 @@
 //React
 import { useState, useRef, useEffect} from 'react';
 
-
 //Styles
 import './styles.scss'
 
@@ -11,19 +10,18 @@ import './styles.scss'
 //firebase services imports
 import * as firebaseUtils from '../../../firebase/utils';
 
-//Firebase services calls
-
-
-
 
 function Navbar(props){
-    //states
-    const [isDisabled,setDisabled] = useState('false');
+    //states intended for everyone
     const [signedInOccurred,setSignedInOccurred] = useState(false);
     const [signedIn, setSignedIn] = useState(false);
 
+    //states that exist because of punctual interactions between components
+    const [signInFlowHidden,setSignInFlowHidden] = useState(true);
+
     
-    //Dom references / Acess elements's DOM API
+    //Funcionamient del Navbar. Importado de entorno no react. 
+    //Dom references / Acess elements's DOM API.
     const navbarMenuItem = useRef(null);
     const toggler = useRef(null);
     const navbarMenu = useRef(null);
@@ -39,13 +37,12 @@ function Navbar(props){
             }
     }
 
-    //When user clicks the log in flow element initiator (A button right now)
+    //When user clicks the log-in-flow initiator (A button right now)
     function signInHandler(){
-        setDisabled(!isDisabled);//Show the log-in ux (by firebaseui right now)
+        setSignInFlowHidden(!signInFlowHidden);//Show the log-in ux (by firebaseui right now)
         props.modalNotify();//Let parent now that the log-in flow started. Modal is a bad name...
-        firebaseUtils.firebaseuiStart(function(){//The events I want to register if singing in is a sucess
-            props.login(true);//All the way to root component
-            setSignedInOccurred(true); //This handle side effects on this very same component due to the success
+        firebaseUtils.firebaseuiStart(function(){//The events I want to register if singing in is a sucess.Just happen if login is succes! Check utils!
+            setSignedInOccurred(true); //This handle side effects on this very same component due to the success of log-in
         }); 
     }
     async function signoutHandler(){
@@ -56,18 +53,20 @@ function Navbar(props){
     }
     
     useEffect(function(){
-        //Check if log-in resulted in a sucess on the previous life-cycle.
+        //Check if log-in resulted in a sucess on the previous life-cycle, so this state now must be true.
         if (signedInOccurred){
-            props.modalNotify();//Whatever the parent did on login-flow ontification, no  needed anymore
-            setDisabled(!isDisabled);//Firebaseui dissapears automatically, so reset this state.
-            setSignedIn(true);//This component do side effects if the user is currently signed in.
-            setSignedInOccurred(false);  //On this state, no sign-in happended.
+            props.login(true);//Utils notifies its events. This was moved from the 'util sucess notifier" becasue a notifier is enoguh. Thisis the right way based on state managment understading.
+            props.modalNotify();//Whatever the parent did on login-flow initiation notification, no  needed anymore
+            setSignInFlowHidden(!signInFlowHidden);//Firebaseui dissapears automatically, so reset this state.
+            setSignedIn(true);//This component do side effects if the user is currently signed in. So notify it is signed in.
+            setSignedInOccurred(false);  //On this life cycle, no sign-in happended.
         }
     })
 
+    //Here just contiionally rendering things bsed on state.
     return (
         <div>
-            <div id='firebaseui-auth-container' className={'modal ' + (isDisabled ? '--disabled': null) }>
+            <div id='firebaseui-auth-container' className={'modal ' + (signInFlowHidden ? '--disabled': null) }>
             
             </div>
 

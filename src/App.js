@@ -24,7 +24,6 @@ function App() {
   
   //States   
   const [isSigned,setSigned] = useState(false);
-  console.log(isSigned);
   
   function handleSetSigned(result){
    setSigned(result);
