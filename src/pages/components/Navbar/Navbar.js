@@ -45,8 +45,8 @@ function Navbar(props){
             setSignedInOccurred(true); //This handle side effects on this very same component due to the success of log-in
         }); 
     }
-    async function signoutHandler(){
-        await firebaseUtils.firebaseAuthSignout(function(){
+    function signoutHandler(){
+            firebaseUtils.firebaseAuthSignout(function(){
             props.login(false);
             setSignedIn(false);
         });

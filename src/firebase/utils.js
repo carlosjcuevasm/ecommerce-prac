@@ -9,17 +9,30 @@ import firebaseConfig from './config';
 import firebase from "firebase/app";
 import "firebase/auth";
 import * as firebaseui from 'firebaseui';
-import 'firebaseui/dist/firebaseui.css' 
+import 'firebaseui/dist/firebaseui.css' ;
 
+//Could be in a separate module, but right now just fb auth cares about cookies
+function storageAvailable(type) {
+  
+  var storage;
+  try {
+      storage = window[type];
+      var x = '__storage_test__';
+      storage.setItem(x, x);
+      storage.removeItem(x);
+      
+      return true;
+  }
+  catch(e) {
+      console.log(e.name, e.message)
+      return false;
+  }
+}
 
 //Must be initialized before using any FB service
-//Development
-
 firebase.initializeApp(firebaseConfig);
 
-//FIREBASE UI
-//Built from FB SDK. Helps streamlining the flow of sign in with a DOM form, styling,  sign-n in help, recover, register, and stuff. Nice Packge. Can be styled.
-var ui = new firebaseui.auth.AuthUI(firebase.auth());
+
 //Configuring the firebase ui isntace to be run
 function uiConfigFunction(onSuccess){
   var uiConfig = {
@@ -48,12 +61,32 @@ function uiConfigFunction(onSuccess){
   };
   return (uiConfig);
 }
+//Variable to check which persistance to use with auth. True defaults to LocalStorage.
+let persistanceLocalStorage = true;
+
+if (storageAvailable(persistanceLocalStorage ? 'localStorage' : 'sessionStorage')){
+  var auth = firebase.auth()
+  auth.setPersistence(persistanceLocalStorage ? 'local' : 'session');
+  var ui = new firebaseui.auth.AuthUI(auth);
+}
+
 //Running the firebaseui instance to be exported
 export function firebaseuiStart(successFunction){
+  
+  if (auth){
+    console.log('hola')
+    //FIREBASE UI
+    //Built from FB SDK. Helps streamlining the flow of sign in with a DOM form, styling,  sign-n in help, recover, register, and stuff. Nice Packge. Can be styled.
+    //reestructuer the firebaseui export cuz it wont run if browser is on disallow cookies, so the sign-in function must be disabled enterily.
     ui.start('#firebaseui-auth-container', uiConfigFunction(successFunction));
+  }
+  else {
+    alert('Your browser is set to disallow all cookies. You wont be able to log in')
+  }
 } 
-export async function firebaseAuthSignout(successFunction){
-  firebase.auth().signOut()
+export function firebaseAuthSignout(successFunction){
+  if (storageAvailable('localStorage')){
+    firebase.auth().signOut()
   .then(function(){
     successFunction();
     
@@ -61,6 +94,7 @@ export async function firebaseAuthSignout(successFunction){
   }).catch(function(error){
     console.log('error logging out');
   });
+  }
 }
 
     

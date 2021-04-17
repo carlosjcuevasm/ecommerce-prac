@@ -18,16 +18,18 @@ import {
 import ShopWomen from './pages/views/Shop/ShopWomen';
 import ShopMen from './pages/views/Shop/ShopMen';
 
+
+
 function App() {
 
-  
-  
   //States   
   const [isSigned,setSigned] = useState(false);
   
   function handleSetSigned(result){
    setSigned(result);
   }
+  
+
   
 
   return ( 
