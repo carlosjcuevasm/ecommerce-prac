@@ -14,7 +14,7 @@ import * as firebaseUtils from '../../../firebase/utils';
 function Navbar(props){
     //states intended for everyone
     const [signedInOccurred,setSignedInOccurred] = useState(false);
-    const [signedIn, setSignedIn] = useState(false);
+    
 
     //states that exist because of punctual interactions between components
     const [signInFlowHidden,setSignInFlowHidden] = useState(true);
@@ -48,7 +48,7 @@ function Navbar(props){
     function signoutHandler(){
             firebaseUtils.firebaseAuthSignout(function(){
             props.login(false);
-            setSignedIn(false);
+            props.setSigned(false);
         });
     }
     
@@ -58,7 +58,7 @@ function Navbar(props){
             props.login(true);//Utils notifies its events. This was moved from the 'util sucess notifier" becasue a notifier is enoguh. Thisis the right way based on state managment understading.
             props.modalNotify();//Whatever the parent did on login-flow initiation notification, no  needed anymore
             setSignInFlowHidden(!signInFlowHidden);//Firebaseui dissapears automatically, so reset this state.
-            setSignedIn(true);//This component do side effects if the user is currently signed in. So notify it is signed in.
+            props.setSigned(true);//This component do side effects if the user is currently signed in. So notify it is signed in.
             setSignedInOccurred(false);  //On this life cycle, no sign-in happended.
         }
     })
@@ -74,8 +74,8 @@ function Navbar(props){
             <a href="#" className="navbar__logo"> <h1 className="navbar__logoContent">BizLand<span className="navbar__logoContentSpan">.</span></h1></a>
             <ul className="navbar__menu" ref={navbarMenu}>
                 <li className="navbar__menuItem"><button className="navbar__menuItemLink button --noBlur" href="#" 
-                onClick={signedIn ? signoutHandler : signInHandler}>
-                {signedIn ? 'Logout' : 'Login'} </button></li>
+                onClick={props.signed ? signoutHandler : signInHandler}>
+                {props.signed ? 'Logout' : 'Login'} </button></li>
             </ul>
             <button className="navbar__toggler" ref={toggler} onClick={togglerHandler}>☰</button>
         </nav>

@@ -10,24 +10,8 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import * as firebaseui from 'firebaseui';
 import 'firebaseui/dist/firebaseui.css' ;
-
-//Could be in a separate module, but right now just fb auth cares about cookies
-function storageAvailable(type) {
-  
-  var storage;
-  try {
-      storage = window[type];
-      var x = '__storage_test__';
-      storage.setItem(x, x);
-      storage.removeItem(x);
-      
-      return true;
-  }
-  catch(e) {
-      console.log(e.name, e.message)
-      return false;
-  }
-}
+//Utils...mostly browser settings checking
+import {storageAvailable} from '../utils';
 
 //Must be initialized before using any FB service
 firebase.initializeApp(firebaseConfig);
@@ -74,7 +58,6 @@ if (storageAvailable(persistanceLocalStorage ? 'localStorage' : 'sessionStorage'
 export function firebaseuiStart(successFunction){
   
   if (auth){
-    console.log('hola')
     //FIREBASE UI
     //Built from FB SDK. Helps streamlining the flow of sign in with a DOM form, styling,  sign-n in help, recover, register, and stuff. Nice Packge. Can be styled.
     //reestructuer the firebaseui export cuz it wont run if browser is on disallow cookies, so the sign-in function must be disabled enterily.
@@ -85,7 +68,8 @@ export function firebaseuiStart(successFunction){
   }
 } 
 export function firebaseAuthSignout(successFunction){
-  if (storageAvailable('localStorage')){
+  
+  if (auth){
     firebase.auth().signOut()
   .then(function(){
     successFunction();
@@ -95,6 +79,10 @@ export function firebaseAuthSignout(successFunction){
     console.log('error logging out');
   });
   }
+  else {
+    alert('Your browser is set to disallow all cookies. You wont be able to sign out')
+  }
+  
 }
 
     

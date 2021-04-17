@@ -3,7 +3,7 @@ import './App.scss';
 
 //pages
 import Homepage from './pages/views/Homepage';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 //import
 import {globalContext,} from './AppContext';
@@ -17,13 +17,30 @@ import {
 //Pages
 import ShopWomen from './pages/views/Shop/ShopWomen';
 import ShopMen from './pages/views/Shop/ShopMen';
+import { render } from '@testing-library/react';
+import { storageAvailable } from './utils';
 
+//Utils...mostly delaing with browser settings
 
+let configCookies = storageAvailable('localStorage');
 
 function App() {
 
   //States   
-  const [isSigned,setSigned] = useState(false);
+  //Covers if not found, and if found. It resolves to a bool anyways.
+  const [signed,setSigned] = useState(function(){
+    if (configCookies){
+      return localStorage.getItem('isSigned') === 'true';
+    }
+    else return false;
+  });
+
+  // On each render, if isSigned is modified, do this
+  useEffect(function(){
+    if (configCookies){
+      localStorage.setItem('isSigned', signed);
+    }
+  }, [signed]);
   
   function handleSetSigned(result){
    setSigned(result);
@@ -35,7 +52,8 @@ function App() {
   return ( 
     <div className='container'>
       <globalContext.Provider value={{
-        signedIn: isSigned,
+        signed: signed,
+        setSigned: setSigned,
         handleSignIn: handleSetSigned
       }}>
         <Switch>
